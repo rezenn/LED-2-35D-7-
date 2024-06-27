@@ -136,6 +136,7 @@ public class RegisterPage {
                 }
             }
 
+            
             private boolean isValidEmail(String email) {
                 String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z]+\\.[A-Za-z]+$";
                 Pattern pattern = Pattern.compile(emailRegex);
@@ -148,6 +149,26 @@ public class RegisterPage {
         gbc.gridwidth = 2;
         gbc.anchor = GridBagConstraints.CENTER;
         formPanel.add(registerButton, gbc);
+
+        JButton login = new JButton("Login");
+        login.setFont(new Font("Arial", Font.PLAIN, 16));
+        login.setPreferredSize(new Dimension(100, 30));
+        login.setBackground(Color.decode("#EFB481"));
+        login.setForeground(Color.decode("#1D48DF"));
+        login.setBorderPainted(false);
+        login.setFocusPainted(false);
+        login.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Create an instance of LoginPage and make it visible
+                LoginPage loginpage = new LoginPage();
+                loginpage.setVisible(true);
+                frame.dispose();
+            }
+        });
+        gbc.gridy = 10;
+        gbc.anchor = GridBagConstraints.CENTER;
+        formPanel.add(login, gbc);
 
         rightPanel.add(formPanel, BorderLayout.CENTER);
 
@@ -213,15 +234,9 @@ public class RegisterPage {
         return button;
     }
 
+
     // Method to set the visibility of the frame
     public void setVisible(boolean isVisible) {
         frame.setVisible(isVisible);
-    }
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            RegisterPage registerPage = new RegisterPage();
-            registerPage.setVisible(true);
-        });
     }
 }
