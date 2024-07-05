@@ -100,10 +100,8 @@ public class LoginPage {
 
                         ResultSet resultSet = statement.executeQuery();
                         if (resultSet.next()) {
-                            JOptionPane.showMessageDialog(frame, "Login successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
-                            // Example: Open Dashboard or another frame
-                            // Dashboard dashboard = new Dashboard();
-                            // dashboard.setVisible(true);
+                            DashboardPage dashboardpage = new DashboardPage();
+                            dashboardpage.setVisible(true);
                         } else {
                             JOptionPane.showMessageDialog(frame, "Invalid email or password", "Error", JOptionPane.ERROR_MESSAGE);
                         }
