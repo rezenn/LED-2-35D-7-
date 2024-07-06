@@ -1,57 +1,56 @@
-import javax.swing.*;
 import java.awt.*;
+import javax.swing.*;
 
-public class Tryle {
-    public static void main(String[] args) {
+public class DashboardPage {
+    public DashboardPage() {
         SwingUtilities.invokeLater(() -> {
-
             // Create a JFrame (window)
             JFrame frame = new JFrame("Dashboard");
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setLayout(new BorderLayout());
 
             // Image Panel on the left
-            String imagePath = "C:/Users/Acer/Desktop/project.java/Screenshot 2024-05-28 115233.png";
+            String imagePath = "SytemLogo.png";
             ImageIcon originalIcon = new ImageIcon(imagePath);
             Image originalImage = originalIcon.getImage();
-            int newWidth = 200;
-            int newHeight = 167;
+            int newWidth = 203;
+            int newHeight = 185;
             Image resizedImage = originalImage.getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH);
             ImageIcon resizedIcon = new ImageIcon(resizedImage);
             JLabel imageLabel = new JLabel(resizedIcon);
 
             // Dashboard button with text and image
-            String dashboardIconPath = "C:/Users/Acer/Desktop/project.java/download (5).png";
+            String dashboardIconPath = "download (5).png";
             ImageIcon dashboardIcon = new ImageIcon(new ImageIcon(dashboardIconPath).getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH));
             JButton dashboardButton = new JButton("Dashboard", dashboardIcon);
             configureButton(dashboardButton);
 
             // Schedule button with text and a different image
-            String scheduleIconPath = "C:/Users/Acer/Desktop/project.java/download (1).png";
+            String scheduleIconPath = "download (1).png";
             ImageIcon scheduleIcon = new ImageIcon(new ImageIcon(scheduleIconPath).getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH));
             JButton scheduleButton = new JButton("Schedule", scheduleIcon);
             configureButton(scheduleButton);
 
             // Staff button with text and image
-            String staffIconPath = "C:/Users/Acer/Desktop/project.java/download.png";
+            String staffIconPath = "download.png";
             ImageIcon staffIcon = new ImageIcon(new ImageIcon(staffIconPath).getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH));
             JButton staffButton = new JButton("Staff", staffIcon);
             configureButton(staffButton);
 
             // Operation button with text and image
-            String operationIconPath = "C:/Users/Acer/Desktop/project.java/download (6).png";
+            String operationIconPath = "download (6).png";
             ImageIcon operationIcon = new ImageIcon(new ImageIcon(operationIconPath).getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH));
             JButton operationButton = new JButton("Operation", operationIcon);
             configureButton(operationButton);
 
             // Inventory button with text and image
-            String inventoryIconPath = "C:/Users/Acer/Desktop/project.java/download (2).png";
+            String inventoryIconPath = "download (2).png";
             ImageIcon inventoryIcon = new ImageIcon(new ImageIcon(inventoryIconPath).getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH));
             JButton inventoryButton = new JButton("Inventory", inventoryIcon);
             configureButton(inventoryButton);
 
             // Report button with text and image
-            String reportIconPath = "C:/Users/Acer/Desktop/project.java/download (7).png";
+            String reportIconPath = "download (7).png";
             ImageIcon reportIcon = new ImageIcon(new ImageIcon(reportIconPath).getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH));
             JButton reportButton = new JButton("Reports", reportIcon);
             configureButton(reportButton);
@@ -90,15 +89,15 @@ public class Tryle {
             contentPanel.setBorder(BorderFactory.createLineBorder(Color.decode("#FFDEC8"), 1));
 
             // Load and resize the map image
-            String mapIconPath = "C:/Users/Acer/Desktop/project.java/Nagarkot - Kathmandu Map.png";
+            String mapIconPath = "Map.png";
             ImageIcon mapOriginalIcon = new ImageIcon(mapIconPath);
             Image mapOriginalImage = mapOriginalIcon.getImage();
-            int mapWidth = 601;  // Set desired width
-            int mapHeight = 431;  // Set desired height
+            int mapWidth = 501;  // Set desired width
+            int mapHeight = 331;  // Set desired height
             Image mapResizedImage = mapOriginalImage.getScaledInstance(mapWidth, mapHeight, Image.SCALE_SMOOTH);
             ImageIcon mapResizedIcon = new ImageIcon(mapResizedImage);
             JLabel mapLabel = new JLabel(mapResizedIcon);
-            mapLabel.setBounds(700, 336, mapWidth, mapHeight); // Set bounds for absolute positioning
+            mapLabel.setBounds(700, 400, mapWidth, mapHeight); // Set bounds for absolute positioning
 
             // Add mapLabel to contentPanel
             contentPanel.add(mapLabel);
@@ -109,8 +108,7 @@ public class Tryle {
             frame.add(contentPanel, BorderLayout.CENTER);
 
             // Set frame size and make it visible
-            frame.setSize(1377, 832);
-            frame.setLocationRelativeTo(null); // Center the frame on the screen
+            frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
             frame.setVisible(true);
         });
     }
@@ -131,5 +129,14 @@ public class Tryle {
     // Method to create vertical spacing
     private static Component createVerticalSpacing(int height) {
         return Box.createRigidArea(new Dimension(0, height));
+    }
+
+    public void setVisible(boolean isVisible) {
+        // This method makes the dashboard visible.
+    }
+
+    public static void main(String[] args) {
+        // This main method is for standalone testing of the DashboardPage class.
+        new DashboardPage().setVisible(true);
     }
 }
