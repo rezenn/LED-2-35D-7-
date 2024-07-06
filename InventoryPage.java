@@ -1,4 +1,9 @@
 import java.awt.*;
+import java.awt.event.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import javax.swing.*;
  
 public class InventoryPage {
@@ -198,14 +203,59 @@ public class InventoryPage {
             panel.add(descriptionArea);
 
             JButton AddInventory = new JButton("Save In Inventory");
-            AddInventory.setLayout(null);
             AddInventory.setBackground(Color.decode("#01520E"));
             AddInventory.setForeground(Color.WHITE);
             AddInventory.setFocusPainted(false);
             AddInventory.setFont(new Font("Arial",Font.PLAIN, 24)); 
             AddInventory.setBounds(250, 640, 370, 60);
             panel.add(AddInventory);
+            AddInventory.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String Name = nameField.getText();
+                String Category = categoryField.getText();
+                String SerialCode = codeField.getText();
+                String Quantity = quanityField.getText();
+                String ManufactureDate = manufactureField.getText();
+                String ExpiryDate = expiryField.getText();
+                String Description = descriptionArea.getText();
 
+                if (Name.isEmpty() || Category.isEmpty() || SerialCode.isEmpty() || Quantity.isEmpty() || ManufactureDate.isEmpty() || ExpiryDate.isEmpty() || Description.isEmpty()){
+                    JOptionPane.showMessageDialog(frame, "Please fill in all fields", "Error", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    // Establishing database connection
+                    String jdbcUrl = "jdbc:mysql://localhost:3306/fireGuard";
+                    String dbUsername = "root";
+                    String dbPassword = "root";
+
+                    try {
+                        Connection conn = DriverManager.getConnection(jdbcUrl, dbUsername, dbPassword);
+
+                        String sql = "INSERT INTO inventory (name, category, serial_code, quantity, manufacture_date, expiry_date, description) VALUES (?, ?, ?, ?, ?, ?, ?)";
+                        PreparedStatement statement = conn.prepareStatement(sql);
+                        statement.setString(1, Name);
+                        statement.setString(2, Category);
+                        statement.setString(3, SerialCode);
+                        statement.setString(4, Quantity);
+                        statement.setString(5, ManufactureDate);
+                        statement.setString(6, ExpiryDate);
+                        statement.setString(7, Description);
+
+                        int rowsInserted = statement.executeUpdate();
+                        if (rowsInserted > 0) {
+                            JOptionPane.showMessageDialog(frame, "Successful Added", "Success", JOptionPane.INFORMATION_MESSAGE);
+                        }
+                        
+                        statement.close();
+                        conn.close();
+                    } catch (SQLException ex) {
+                        ex.printStackTrace();
+                        JOptionPane.showMessageDialog(frame, "Failed to add. Please try again.", "Inventory Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                
+                }
+            }
+        });
 
  
             // Create a panel to add margins around the right panel
@@ -243,4 +293,5 @@ public class InventoryPage {
         return Box.createRigidArea(new Dimension(0, height));
     }
 
+    
 }

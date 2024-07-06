@@ -114,7 +114,6 @@ public class RegisterPage {
 
                     try {
                         Connection conn = DriverManager.getConnection(jdbcUrl, dbUsername, dbPassword);
-                        System.out.println("Connected to database!");
 
                         String sql = "INSERT INTO accounts (full_name, email, password) VALUES (?, ?, ?)";
                         PreparedStatement statement = conn.prepareStatement(sql);

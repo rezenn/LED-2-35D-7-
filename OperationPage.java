@@ -1,4 +1,9 @@
 import java.awt.*;
+import java.awt.event.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import javax.swing.*;
  
 public class OperationPage         {
@@ -91,7 +96,7 @@ public class OperationPage         {
             panel.setBounds(250, 70, 1150, 710);
             frame.add(panel);
 
-            JLabel inventory = new JLabel("Operation");
+            JLabel inventory = new JLabel("Operationgit ");
             panel.setLayout(null); 
             inventory.setBounds(80,30,250,30);
             inventory.setBackground(Color.decode("#FFDEC8"));
@@ -249,7 +254,54 @@ public class OperationPage         {
             SaveReport.setFocusPainted(false);
             SaveReport.setFont(new Font("Arial",Font.PLAIN, 24)); 
             SaveReport.setBounds(400, 640, 370, 60);
-            panel.add(SaveReport);
+             SaveReport.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    int incidentId = Integer.parseInt(IncidentField.getText());
+                    String nameOfCaller = callerField.getText();
+                    String typeOfIncident = typeOfIncidentField.getText();
+                    String cause = CauseField.getText();
+                    int noOfInjured = Integer.parseInt(InjuredField.getText());
+                    int noOfCasualties = Integer.parseInt(NoOfCasualtiesField.getText());
+                    String timeOfIncident = TimeOfIncidentField.getText();
+                    String dateOfIncident = DateOfIncidentField.getText();
+                    String placeOfIncident = PlaceOfIncidentField.getText();
+                    String damageOfProperty = DamageOfPropertyField.getText();
+
+                    // Database connection
+                    String url = "jdbc:mysql://localhost:3306/fireGuard"; // Update with your DB name
+                    String username = "root"; // Update with your DB username
+                    String password = "root"; // Update with your DB password
+
+                    String query = "INSERT INTO operation (incident_id, nameOfCaller, type_of_incident, cause, no_of_injured, no_of_casualties, time_of_incident, date_of_incident, place_of_incident, damage_of_property) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+                    try (Connection conn = DriverManager.getConnection(url, username, password);
+                         PreparedStatement stmt = conn.prepareStatement(query)) {
+
+                        stmt.setInt(1, incidentId);
+                        stmt.setString(2, nameOfCaller);
+                        stmt.setString(3, typeOfIncident);
+                        stmt.setString(4, cause);
+                        stmt.setInt(5, noOfInjured);
+                        stmt.setInt(6, noOfCasualties);
+                        stmt.setString(7, timeOfIncident);
+                        stmt.setString(8, dateOfIncident);
+                        stmt.setString(9, placeOfIncident);
+                        stmt.setString(10, damageOfProperty);
+
+                        int rowsInserted = stmt.executeUpdate();
+                        if (rowsInserted > 0) {
+                            JOptionPane.showMessageDialog(null, "Data added successfully!");
+                        }
+                    } catch (SQLException ex) {
+                        ex.printStackTrace();
+                        JOptionPane.showMessageDialog(null, "Error adding data: " + ex.getMessage());
+                    }
+                }
+            });
+        panel.add(SaveReport);
+
+
 
 
  
